@@ -2,16 +2,16 @@ import React, { Component } from 'react';
 
 import Header from '../header';
 import RandomPlanet from '../random-planet';
-import ItemList from '../item-list';
-import PersonDetails from '../person-details';
+import PeoplePage from '../people-page'
+import SwapiService from '../../services/swapi-service'
 
 import './app.css';
 
-export default class App extends Component {
 
+export default class App extends Component {
+  swapiService = new SwapiService();
   state = {
-    showRandomPlanet: true,
-    selectedPerson: null
+    showRandomPlanet: true
   };
 
   toggleRandomPlanet = () => {
@@ -19,12 +19,6 @@ export default class App extends Component {
       return {
         showRandomPlanet: !state.showRandomPlanet
       }
-    });
-  };
-
-  onPersonSelected = (id) => {
-    this.setState({
-      selectedPerson: id
     });
   };
 
@@ -44,15 +38,7 @@ export default class App extends Component {
           onClick={this.toggleRandomPlanet}>
           Toggle Random Planet
         </button>
-
-        <div className="row mb2">
-          <div className="col-md-6">
-            <ItemList onItemSelected={this.onPersonSelected}/>
-          </div>
-          <div className="col-md-6">
-            <PersonDetails personId={this.state.selectedPerson} />
-          </div>
-        </div>
+        <PeoplePage />
       </div>
     );
   }
